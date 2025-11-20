@@ -2,15 +2,20 @@
 
 const path = require('path')
 const AutoLoad = require('@fastify/autoload')
+const websocket = require('@fastify/websocket')
 
-module.exports = async function (fastify, opts) {
- fastify.register(AutoLoad, {
-   dir: path.join(__dirname, 'plugins'),
-   options: Object.assign({}, opts)
- })  
+module.exports = async function (fastify, opts) {     
 
- fastify.register(AutoLoad, {
-   dir: path.join(__dirname, 'routes'),
-   options: Object.assign({}, opts)
- })
+  fastify.register(websocket)  
+
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: Object.assign({}, opts),
+  })
+
+ 
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: Object.assign({}, opts),
+  })
 }
